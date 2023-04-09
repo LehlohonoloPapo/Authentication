@@ -1,4 +1,6 @@
 using Auth.Services;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace Auth
 {
@@ -9,8 +11,8 @@ namespace Auth
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddTransient<AuthService>();
-
+           
+            builder.Services.AddTransient<AuthService, AuthService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

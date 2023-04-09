@@ -11,7 +11,13 @@ namespace Auth.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly AuthService _authService;
         // GET: api/<AuthController>
+
+        public AuthController(AuthService authService)
+        {
+            this._authService= authService;
+        }
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -27,9 +33,10 @@ namespace Auth.Controllers
 
         // POST api/<AuthController>
         [HttpPost]
-        public AuthResponse Post([FromBody] AuthRequest authRequest)
+        public async Task<AuthResponse?> PostAsync([FromBody] AuthRequest authRequest)
         {
-            return new AuthService().GetUser(authRequest);
+            var result = await _authService.GetUserAsync(authRequest);
+            return result;
         }
 
 
